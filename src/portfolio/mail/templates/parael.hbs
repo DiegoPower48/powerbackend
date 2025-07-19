@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gracias por tu interés</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f9f9f9;
+        color: #333333;
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #0e1621;
+        border-radius: 8px;
+        padding: 40px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: yellow;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        color: white;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 13px;
+        color: #777777;
+        text-align: center;
+      }
+      .highlight {
+        font-weight: bold;
+        color: #2e86de;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>¡Hola {{nombre}}!</h1>
+      <p>
+        Muchas gracias por tu interés en mi perfil profesional. Es un gusto saber que estás considerando trabajar conmigo.
+      </p>
+      <p>
+        Soy desarrollador web fullstack especializado en <strong>React, Next.js, NestJS y Laravel</strong>, con experiencia en la creación de aplicaciones rápidas, seguras y optimizadas para SEO y rendimiento.
+      </p>
+      <p>
+        Si deseas conocer más sobre mis proyectos o necesitas que te apoye en una solución específica, estaré encantado de contactar contigo.
+      </p>
+      <p>
+        Puedes responder a este correo o escribirme directamente. ¡Estoy listo para ayudarte!
+      </p>
+      <div class="footer">
+        Diego Torres<br />
+        Desarrollador Fullstack Web y Móvil<br />
+        <a class="highlight" href="mailto:{{correo}}?subject={{asunto}}">{{correo}}</a>
+      </div>
+    </div>
+  </body>
+</html>

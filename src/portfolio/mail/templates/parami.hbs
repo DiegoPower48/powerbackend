@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nuevo mensaje de contacto</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        padding: 20px;
+      }
+      .container {
+        background-color: #0e1621;
+        border-radius: 8px;
+        padding: 24px;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .titulo {
+        color: white;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #444444;
+      }
+      .info {
+        background-color: #f1f1f1;
+        padding: 12px;
+        border-radius: 4px;
+        margin-top: 16px;
+      }
+      .label {
+        font-weight: bold;
+        color: #222;
+      }
+      a {
+        color: #1a73e8;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="titulo">📨 Nueva solicitud de contacto desde tu portafolio</h2>
+
+      <p class="titulo">Hola Diego, alguien ha enviado un mensaje a través del formulario de contacto.</p>
+
+      <div class="info">
+        <p><span class="label">👤 Nombre:</span> {{nombre}}</p>
+        <p><span class="label">📧 Correo:</span> 
+          <a href="mailto:{{correo}}">{{correo}}</a>
+        </p>
+        <p><span class="label">📝 Comentario:</span></p>
+        <p>{{comentario}}</p>
+      </div>
+    </div>
+  </body>
+</html>
