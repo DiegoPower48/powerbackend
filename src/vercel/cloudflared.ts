@@ -7,7 +7,7 @@ export class CloudflaredService {
     console.log('🚀 Iniciando creación del túnel con Cloudflared...');
 
     return new Promise((resolve, reject) => {
-      const child = spawn('cloudflared', ['tunnel', '--url', 'http://localhost:3000', '--loglevel', 'info']);
+      const child = spawn('cloudflared', ['tunnel', '--url', `http://localhost:${process.env.HOST_PORT}`, '--loglevel', 'info']);
 
       const buscarURL = (line: string) => {
         const match = line.match(/https:\/\/.*?\.trycloudflare\.com/);

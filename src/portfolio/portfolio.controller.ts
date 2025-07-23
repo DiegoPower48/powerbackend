@@ -1,6 +1,7 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { PortfolioService } from './portfolio.service';
 import { Mail } from 'generated/prisma';
+import { CreateMailDto } from './dto/create-mail.dto';
 
 @Controller('portfolio')
 export class PortfolioController {
@@ -8,7 +9,7 @@ export class PortfolioController {
 
     @Post()
     @HttpCode(201)
-    async sendMail(@Body() data:Mail){
+    async sendMail(@Body() data:CreateMailDto){
       return this.portfolioService.sendMail(data)
     }
     

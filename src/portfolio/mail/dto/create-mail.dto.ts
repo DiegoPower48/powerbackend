@@ -3,13 +3,13 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 export class CreateMailDto {
   @IsNotEmpty()
   @IsString()
-  nombre;
+  nombre: string;
 
   @IsEmail()
   @IsNotEmpty()
-  correo;
+  correo: string;
 
   @IsNotEmpty()
   @IsString()
-  comentario;
+  comentario: string;
 }

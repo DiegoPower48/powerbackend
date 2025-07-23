@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBlockDto } from './dto/create-block.dto';
-import { UpdateBlockDto } from './dto/update-block.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Block } from '@prisma/client';
 
 @Injectable()
 export class BlockService {
-  create(createBlockDto: CreateBlockDto) {
-    return 'This action adds a new block';
-  }
+  constructor(private prisma: PrismaService) {}
 
   findAll() {
-    return `This action returns all block`;
+    return this.prisma.block.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} block`;
+  update(block: Block) {
+  if (typeof block.id === 'number') {
+    return this.prisma.block.upsert({
+      where: { id: block.id },
+      update: { texto: block.texto },
+      create: { id: block.id, texto: block.texto }, // puedes omitir `id` si es autoincremental
+    });
+  } else {
+    // crear nuevo
+    return this.prisma.block.create({
+      data: { texto: block.texto },
+    });
   }
-
-  update(id: number, updateBlockDto: UpdateBlockDto) {
-    return `This action updates a #${id} block`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} block`;
-  }
+}
 }
