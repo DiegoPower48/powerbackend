@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { CloudflaredService } from './cloudflared';
 import 'dotenv/config';
 const VERCEL_API_TOKEN = process.env.VERCEL_API_TOKEN!;
@@ -7,7 +7,7 @@ const PROYECTOS_VERCELES = process.env.PROYECTOS_VERCELES?.split(',') || [];
 const VARS_A_ACTUALIZAR = ['NEXT_PUBLIC_API_URL', 'VITE_API_URL'];
 
 @Injectable()
-export class VercelMultiService {
+export class VercelMultiService implements OnModuleInit {
   
   constructor(private readonly cloudflaredService: CloudflaredService) {}
 
@@ -15,7 +15,9 @@ export class VercelMultiService {
     Authorization: `Bearer ${VERCEL_API_TOKEN}`,
     'Content-Type': 'application/json',
   };
-
+  async onModuleInit() {
+    await this.actualizarYRedeploy();
+  }
   private async actualizarVariable(project: string, key: string, value: string): Promise<boolean> {
   const query = VERCEL_TEAM_ID ? `?teamId=${VERCEL_TEAM_ID}` : '';
 console.log(`📦 Estableciendo ${key} = ${value} en ${project}`);

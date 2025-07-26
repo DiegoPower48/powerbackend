@@ -7,10 +7,21 @@ import { AppService } from './app.service';
 import { BlockModule } from './block/block.module';
 import { ChatModule } from './websockets/chat/chat.module';
 import { ScrapperModule } from './scrapper/scrapper.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PortfolioModule,BlockModule,ChatModule, ScrapperModule],
+  imports: [
+    ScheduleModule.forRoot(),
+     ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    PortfolioModule,
+    BlockModule,
+    ChatModule,
+    ScrapperModule,
+  ],
   controllers: [AppController],
-  providers: [VercelMultiService, CloudflaredService, AppService,ScrapperModule], 
+  providers: [VercelMultiService, CloudflaredService, AppService],
 })
 export class AppModule {}

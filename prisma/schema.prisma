@@ -25,15 +25,13 @@ model Block{
   id Int @id @default(autoincrement())
   texto String  @db.Text 
 }
-model Horario {
-  id     Int           @id @default(autoincrement())
-  bloques DiaBloque[]
-}
 
-model DiaBloque {
-  id        Int     @id @default(autoincrement())
-  dia       String  // "Lunes", etc.
-  hora      String  // ej. "08:00"
-  horarioId Int
-  horario   Horario @relation(fields: [horarioId], references: [id])
+model Coin {
+  id         Int     @id @default(autoincrement())
+  name       String
+  symbol     String   @unique
+  price      String
+  change1h   String
+  change24h  String
+  change7d   String
 }
