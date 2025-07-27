@@ -35,3 +35,14 @@ model Coin {
   change24h  String
   change7d   String
 }
+
+model Peluche{
+  id          Int @id @default(autoincrement())
+  nombre      String
+  url         String
+  detalle     String
+  descripcion String @db.Text
+  precio      Int
+  tipo        String
+  color       String
+}

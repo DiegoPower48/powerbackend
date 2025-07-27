@@ -1,6 +1,5 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { PortfolioService } from './portfolio.service';
-import { Mail } from 'generated/prisma';
 import { CreateMailDto } from './dto/create-mail.dto';
 
 @Controller('portfolio')

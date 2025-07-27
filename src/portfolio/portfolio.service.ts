@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Mail } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MailService } from './mail/mail.service';
 import { CreateMailDto } from './dto/create-mail.dto';
