@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Block } from '@prisma/client';
 
 @Injectable()
-export class BlockService {
+export class BlockService {  
   constructor(private prisma: PrismaService) {}
 
   findAll() {

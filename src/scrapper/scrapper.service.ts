@@ -11,7 +11,7 @@ export class ScrapperService {
 
   @Cron(CronExpression.EVERY_HOUR)
   async runScrapingJob() {
-    this.logger.log('⏳ Ejecutando scraping...');
+    this.logger.log('⏳⏳⏳ Ejecutando scraping...');
 
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
@@ -71,7 +71,7 @@ export class ScrapperService {
       });
     }
 
-    this.logger.log(`✅ Scraping completado. ${data.length} registros actualizados.`);
+    this.logger.log(`🔍🔍🔍 Scraping completado. ${data.length} registros actualizados.`);
   }
 
   async getAllCoins() {

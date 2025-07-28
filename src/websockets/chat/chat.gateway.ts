@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -15,16 +16,19 @@ import { Server, Socket } from 'Socket.io';
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+
+  private readonly logger = new Logger(ChatGateway.name)
+
   @WebSocketServer()
   server: Server;
 
   // METODOS POR EL IMPLEMENTS
   handleConnection(client: Socket) {
-    console.log('Cliente conectado:', client.id);    
+    this.logger.log('Cliente conectado:', client.id);    
     client.emit('me', client.id);
   }
   handleDisconnect(client: Socket) {
-    console.log('Cliente desconectado:', client.id);
+    this.logger.log('Cliente desconectado:', client.id);
     client.broadcast.emit('callEnded');
   }
 
@@ -85,7 +89,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('message')
   handleMessage(@MessageBody() data: any) {
-    console.log(data);
+    this.logger.log(data);
 
     this.server.sockets.emit('message', data);
   }

@@ -1,10 +1,12 @@
+import { Logger } from '@nestjs/common';
 import { spawn } from 'child_process';
 
 export class CloudflaredService {
+  private readonly logger = new Logger(CloudflaredService.name)
   private tunnelUrl = '';
 
   async startTunnel(): Promise<void> {
-    console.log('🚀 Iniciando creación del túnel con Cloudflared...');
+    this.logger.log('🚀 Iniciando creación del túnel con Cloudflared...');
 
     return new Promise((resolve, reject) => {
       const child = spawn('cloudflared', ['tunnel', '--url', `http://localhost:${process.env.HOST_PORT}`, '--loglevel', 'info']);
@@ -13,7 +15,7 @@ export class CloudflaredService {
         const match = line.match(/https:\/\/.*?\.trycloudflare\.com/);
         if (match && !this.tunnelUrl) {
           this.tunnelUrl = match[0];
-          console.log(`✅ Túnel iniciado en: ${this.tunnelUrl}`);
+          this.logger.log(`⭐⭐⭐ Túnel iniciado en: ${this.tunnelUrl}`);
           resolve();
         }
       };
@@ -25,8 +27,7 @@ export class CloudflaredService {
 
       child.stderr.on('data', (data) => {
         const line = data.toString();
-        console.error(`Cloudflared: ${line}`);
-        buscarURL(line); // 🔑 Aquí también buscamos la URL
+        buscarURL(line);
       });
 
       child.on('error', reject);
