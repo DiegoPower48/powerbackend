@@ -33,7 +33,14 @@ export class PeluchesService {
 
   async getOne(id: number) {
     try {
-      const data = this.prisma.peluche.findUnique({
+      if (isNaN(id)) {
+        throw new HttpException(
+          'El id ingresado no es un numero',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const data = await this.prisma.peluche.findFirstOrThrow({
         where: { id },
       });
       if (!data) {
@@ -51,31 +58,52 @@ export class PeluchesService {
     }
   }
 
-  async findOne(nombre: string) {
-    try {
-      const data = this.prisma.peluche.findFirst({
-        where: {
-          nombre: nombre,
+  async find(nombre: string) {
+    const data = await this.prisma.peluche.findMany({
+      where: {
+        nombre: {
+          contains: nombre,
         },
-      });
+      },
+    });
+    if (!data) {
+      throw new HttpException('No encontrado', HttpStatus.NOT_FOUND);
+    }
+    return data;
+  }
 
-      if (!data) {
-        throw new HttpException('No encontrado', HttpStatus.NOT_FOUND);
-      }
-
-      return data;
-    } catch (error) {
+  async filter({
+    tipo,
+    color,
+    precio,
+  }: {
+    tipo?: string;
+    color?: string;
+    precio?: string;
+  }) {
+    const where: any = {};
+    if (tipo) {
+      where.tipo = { contains: tipo};
+    }
+    if (color) {
+      where.color = { contains: color};
+    }
+    if (precio) {
+      const rangos = precio.split(',').map((r) => r.split('-').map(Number));
+      where.OR = rangos.map(([min, max]) => ({
+        precio: {
+          gte: min,
+          lte: max,          
+        },
+      }));
+    }
+    const data = await this.prisma.peluche.findMany({where});
+    if (!data || data.length === 0) {
       throw new HttpException(
-        'Error del servidor',
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        'No se encontraron resultados',
+        HttpStatus.NOT_FOUND,
       );
     }
-  }
-  async findMany() {
-    return;
-  }
-
-  async findFilter() {
-    return;
+    return data;
   }
 }

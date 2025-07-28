@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { BlockService } from './block.service';
-import { Block } from '@prisma/client';
+import { UpdateBlockDto } from './dto/update-block.dto';
 
 @Controller('block')
 export class BlockController {
@@ -14,7 +14,7 @@ export class BlockController {
  
 
   @Post()
-  update(@Body() block:Block) {
+  update(@Body() block:UpdateBlockDto) {
     return this.blockService.update(block);
   }
 
