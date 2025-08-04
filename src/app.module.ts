@@ -12,11 +12,13 @@ import { ConfigModule } from '@nestjs/config';
 import { PeluchesModule } from './peluches/peluches.module';
 import { VercelModule } from './vercel/scripts.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-     ConfigModule.forRoot({
+    ConfigModule.forRoot({
       isGlobal: true,
     }),
     PrismaModule,
@@ -26,6 +28,8 @@ import { PrismaModule } from './prisma/prisma.module';
     VercelModule,
     ScrapperModule,
     PeluchesModule,
+    UsersModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

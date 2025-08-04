@@ -66,9 +66,6 @@ export class PeluchesService {
         },
       },
     });
-    if (!data) {
-      throw new HttpException('No encontrado', HttpStatus.NOT_FOUND);
-    }
     return data;
   }
 
@@ -83,21 +80,21 @@ export class PeluchesService {
   }) {
     const where: any = {};
     if (tipo) {
-      where.tipo = { contains: tipo};
+      where.tipo = { contains: tipo };
     }
     if (color) {
-      where.color = { contains: color};
+      where.color = { contains: color };
     }
     if (precio) {
       const rangos = precio.split(',').map((r) => r.split('-').map(Number));
       where.OR = rangos.map(([min, max]) => ({
         precio: {
           gte: min,
-          lte: max,          
+          lte: max,
         },
       }));
     }
-    const data = await this.prisma.peluche.findMany({where});
+    const data = await this.prisma.peluche.findMany({ where });
     if (!data || data.length === 0) {
       throw new HttpException(
         'No se encontraron resultados',
