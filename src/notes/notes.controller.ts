@@ -29,7 +29,7 @@ export class NotesController {
   }
 
   @Patch()
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async editNote(@Body() note: UpdateNotesDto) {
     return this.notesService.editNote(note);
   }

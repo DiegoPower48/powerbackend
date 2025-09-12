@@ -2,6 +2,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -11,6 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
@@ -40,6 +42,20 @@ export class UsersService {
     const payload = { id: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
 
+    /* TRABAJO CON COOKIES  */
+
+    // const jwtTimeInDays = Number(process.env.JWT_TIME || 1);
+    // const maxAge = jwtTimeInDays * 24 * 60 * 60 * 1000;
+
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: 'lax',
+    //   maxAge,
+    // });
+
+    // return { message: 'Authenticated' };
+    this.logger.log('Login de usuario en notes');
     return { token };
   }
 

@@ -47,6 +47,13 @@ model Peluche{
   color       String
 }
 
+model Usuarios {
+  id       Int    @id @default(autoincrement())
+  email    String
+  password String
+  username String @default("null")
+}
+
 
 
 model User {

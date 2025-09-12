@@ -14,6 +14,7 @@ import { VercelModule } from './vercel/scripts.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
 import { NotesModule } from './notes/notes.module';
+import { FabianModule } from './fabian/fabian.module';
 
 @Module({
   imports: [
@@ -30,6 +31,8 @@ import { NotesModule } from './notes/notes.module';
     PeluchesModule,
     UsersModule,
     NotesModule,
+    FabianModule
+    
   ],
   controllers: [AppController],
   providers: [AppService],
